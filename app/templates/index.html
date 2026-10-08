@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MolParam — Predictor de Parámetros Atómicos</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <script src="/static/3Dmol-min.js"></script>
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+
+  <header>
+    <div class="logo">
+      <span class="logo-icon">⬡</span>
+      <span class="logo-text">MolParam</span>
+    </div>
+    <p class="tagline">Predicción automática de atomtype y carga parcial desde archivos .mol2</p>
+  </header>
+
+  <main>
+
+    <!-- UPLOAD ZONE -->
+    <section class="upload-section">
+      <div class="upload-card" id="dropzone">
+        <div class="upload-icon">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M32 8L32 44M32 8L20 20M32 8L44 20" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 48V56H56V48" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="upload-title">Subí tu archivo <code>.mol2</code></p>
+        <p class="upload-sub">Arrastrá y soltá, o hacé click para seleccionar</p>
+        <input type="file" id="fileInput" accept=".mol2" hidden />
+        <button class="btn-upload" onclick="event.stopPropagation(); document.getElementById('fileInput').click()">Seleccionar archivo</button>
+        <div class="file-info" id="fileInfo" style="display:none"></div>
+      </div>
+
+      <button class="btn-predict" id="btnPredict" disabled>
+        <span class="btn-text">Predecir parámetros</span>
+        <span class="btn-icon">→</span>
+      </button>
+    </section>
+
+    <!-- LOADER -->
+    <div class="loader" id="loader" style="display:none">
+      <div class="loader-ring"></div>
+      <p>Calculando predicciones…</p>
+    </div>
+
+    <!-- ERROR -->
+    <div class="error-box" id="errorBox" style="display:none"></div>
+
+    <!-- RESULTS -->
+    <section class="results-section" id="resultsSection" style="display:none">
+
+      <div class="results-header">
+        <h2>Resultados — <span id="molName"></span></h2>
+        <div class="download-btns">
+          <button class="btn-download" id="downloadAA">↓ CSV All-Atom</button>
+          <button class="btn-download" id="downloadUA">↓ CSV United-Atom</button>
+        </div>
+      </div>
+
+      <!-- VISUALIZADOR 3D -->
+      <div class="viewer-section">
+        <div class="viewer-header">
+          <span class="viewer-title">⬡ Estructura 3D</span>
+          <div class="viewer-controls">
+            <button class="btn-style active" data-style="stick" onclick="setStyle('stick')">Stick</button>
+            <button class="btn-style" data-style="sphere" onclick="setStyle('sphere')">Esfera</button>
+            <button class="btn-viewer-action" onclick="resetView()">⟳ Reset</button>
+            <button class="btn-viewer-action" onclick="toggleSpin()">⟲ Spin</button>
+          </div>
+        </div>
+        <div class="viewer-info">
+          <span class="viewer-hint">Rotá · Zoom · Click en átomo para ver detalles</span>
+          <div class="atom-tooltip" id="atomTooltip" style="display:none"></div>
+        </div>
+        <div id="mol3d-container"></div>
+        <div class="viewer-legend" id="viewerLegend"></div>
+      </div>
+
+      <!-- TABS -->
+      <div class="tabs">
+        <button class="tab active" data-tab="AA">All-Atom (AA)</button>
+        <button class="tab" data-tab="UA">United-Atom (UA)</button>
+      </div>
+
+      <!-- TABLE AA -->
+      <div class="tab-content active" id="tab-AA">
+        <div class="stats-row" id="statsAA"></div>
+        <div class="table-wrap">
+          <table id="tableAA">
+            <thead>
+              <tr>
+                <th>Molécula</th>
+                <th>atom_id</th>
+                <th>atom_name</th>
+                <th>Elemento</th>
+                <th>atomtype predicho</th>
+                <th>charge predicha (e)</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TABLE UA -->
+      <div class="tab-content" id="tab-UA">
+        <div class="stats-row" id="statsUA"></div>
+        <div class="table-wrap">
+          <table id="tableUA">
+            <thead>
+              <tr>
+                <th>Molécula</th>
+                <th>atom_id</th>
+                <th>atom_name</th>
+                <th>Elemento</th>
+                <th>atomtype predicho</th>
+                <th>charge predicha (e)</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    <p>MolParam · Tesis de Ingeniería · GROMOS Force Field · Random Forest</p>
+  </footer>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>

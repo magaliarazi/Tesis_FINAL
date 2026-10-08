@@ -1,0 +1,144 @@
+{
+  "AA": {
+    "dataset": "AA",
+    "original_shape": [
+      487,
+      31
+    ],
+    "clean_shape": [
+      487,
+      91
+    ],
+    "n_atoms": 487,
+    "n_atomtypes": 16,
+    "atomtypes": [
+      "C",
+      "CH1",
+      "CH2",
+      "CH3",
+      "CL",
+      "F",
+      "H",
+      "HC",
+      "HS14",
+      "N",
+      "NT",
+      "O",
+      "OA",
+      "OE",
+      "OM",
+      "S"
+    ],
+    "charge_range": [
+      -0.608,
+      0.82
+    ],
+    "dropped_features": [
+      "degree_of_unsat",
+      "n_dihedrals",
+      "bonds_single",
+      "tripos_type"
+    ],
+    "bool_cols": [
+      "is_planar",
+      "is_in_ring",
+      "is_aromatic"
+    ],
+    "id_cols": [
+      "molecule",
+      "atom_id",
+      "atom_name",
+      "bonded_to_element"
+    ],
+    "hash_cols": {
+      "neighbor_config": 32,
+      "neighbor2_config": 32
+    },
+    "ohe_categories": {
+      "element": [
+        "C",
+        "Cl",
+        "F",
+        "H",
+        "N",
+        "O",
+        "S"
+      ]
+    },
+    "erroneous_atoms_removed": []
+  },
+  "UA": {
+    "dataset": "UA",
+    "original_shape": [
+      326,
+      31
+    ],
+    "clean_shape": [
+      326,
+      91
+    ],
+    "n_atoms": 326,
+    "n_atomtypes": 15,
+    "atomtypes": [
+      "C",
+      "CH1",
+      "CH2",
+      "CH3",
+      "CL",
+      "F",
+      "H",
+      "HS14",
+      "N",
+      "NT",
+      "O",
+      "OA",
+      "OE",
+      "OM",
+      "S"
+    ],
+    "charge_range": [
+      -0.608,
+      0.82
+    ],
+    "dropped_features": [
+      "degree_of_unsat",
+      "n_dihedrals",
+      "bonds_single",
+      "tripos_type"
+    ],
+    "bool_cols": [
+      "is_planar",
+      "is_in_ring",
+      "is_aromatic"
+    ],
+    "id_cols": [
+      "molecule",
+      "atom_id",
+      "atom_name",
+      "bonded_to_element"
+    ],
+    "hash_cols": {
+      "neighbor_config": 32,
+      "neighbor2_config": 32
+    },
+    "ohe_categories": {
+      "element": [
+        "C",
+        "Cl",
+        "F",
+        "H",
+        "N",
+        "O",
+        "S"
+      ]
+    },
+    "erroneous_atoms_removed": [
+      {
+        "dataset": "UA",
+        "molecule": "2NP",
+        "element": "O",
+        "atomtype": "HC"
+      }
+    ]
+  }
+}
